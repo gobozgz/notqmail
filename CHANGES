@@ -1,3 +1,4 @@
+20200501 stop rewriting RCPT TO: domains when they are a CNAME (RFC 5321 5.1)
 20191227 fixed possible overflow in alloc() with allocations close to 4GiB
 20191226 add missing return types to main()
 20190919 fix ipme with multiple addresses on the same interface on platforms

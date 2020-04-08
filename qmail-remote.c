@@ -276,14 +276,9 @@ void smtp()
 stralloc canonhost = {0};
 stralloc canonbox = {0};
 
-void addrmangle(saout,s,flagalias)
-stralloc *saout; /* host has to be canonical, box has to be quoted */
-char *s;
-int *flagalias;
+void addrmangle(stralloc *saout, char *s)
 {
   int j;
- 
-  *flagalias = 0;
  
   j = str_rchr(s,'@');
   if (!s[j]) {
@@ -292,6 +287,7 @@ int *flagalias;
   }
   if (!stralloc_copys(&canonbox,s)) temp_nomem();
   canonbox.len = j;
+  /* box has to be quoted */
   if (!quote(saout,&canonbox)) temp_nomem();
   if (!stralloc_cats(saout,"@")) temp_nomem();
  
@@ -327,8 +323,6 @@ char **argv;
   unsigned long random;
   char **recips;
   unsigned long prefme;
-  int flagallaliases;
-  int flagalias;
   char *relayhost;
  
   sig_pipeignore();
@@ -356,18 +350,16 @@ char **argv;
   }
 
 
-  addrmangle(&sender,argv[2],&flagalias);
+  addrmangle(&sender,argv[2]);
  
   if (!saa_readyplus(&reciplist,0)) temp_nomem();
   if (ipme_init() != 1) temp_oserr();
  
-  flagallaliases = 1;
   recips = argv + 3;
   while (*recips) {
     if (!saa_readyplus(&reciplist,1)) temp_nomem();
     reciplist.sa[reciplist.len] = sauninit;
-    addrmangle(reciplist.sa + reciplist.len,*recips,&flagalias);
-    if (!flagalias) flagallaliases = 0;
+    addrmangle(reciplist.sa + reciplist.len,*recips);
     ++reciplist.len;
     ++recips;
   }
@@ -391,7 +383,6 @@ char **argv;
         prefme = ip.ix[i].pref;
  
   if (relayhost) prefme = 300000;
-  if (flagallaliases) prefme = 500000;
  
   for (i = 0;i < ip.len;++i)
     if (ip.ix[i].pref < prefme)

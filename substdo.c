@@ -3,7 +3,7 @@
 #include "byte.h"
 #include "error.h"
 
-static int allwrite(ssize_t (*op)(), int fd, char *buf, unsigned int len)
+static int allwrite(ssize_t (*op)(), int fd, char *buf, size_t len)
 {
   ssize_t w;
 
@@ -31,10 +31,7 @@ register substdio *s;
   return allwrite(s->op,s->fd,s->x,p);
 }
 
-int substdio_bput(s,buf,len)
-register substdio *s;
-register char *buf;
-register unsigned int len;
+int substdio_bput(substdio *s, char *buf, size_t len)
 {
   register unsigned int n;
  
@@ -51,10 +48,7 @@ register unsigned int len;
   return 0;
 }
 
-int substdio_put(s,buf,len)
-register substdio *s;
-register char *buf;
-register unsigned int len;
+int substdio_put(substdio *s, char *buf, size_t len)
 {
   register unsigned int n = s->n; /* how many bytes to write in next chunk */
  
@@ -78,10 +72,7 @@ register unsigned int len;
   return 0;
 }
 
-int substdio_putflush(s,buf,len)
-register substdio *s;
-register char *buf;
-register int len;
+int substdio_putflush(substdio *s, char *buf, size_t len)
 {
   if (substdio_flush(s) == -1) return -1;
   return allwrite(s->op,s->fd,buf,len);

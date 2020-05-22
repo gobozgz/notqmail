@@ -17,9 +17,9 @@ typedef struct substdio {
 extern void substdio_fdbuf();
 
 extern int substdio_flush();
-extern int substdio_put();
-extern int substdio_bput();
-extern int substdio_putflush();
+extern int substdio_put(substdio *s, char *buf, size_t len);
+extern int substdio_bput(substdio *s, char *buf, size_t len);
+extern int substdio_putflush(substdio *s, char *buf, size_t len);
 extern int substdio_puts();
 extern int substdio_bputs();
 extern int substdio_putsflush();

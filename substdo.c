@@ -3,13 +3,9 @@
 #include "byte.h"
 #include "error.h"
 
-static int allwrite(op,fd,buf,len)
-register int (*op)();
-register int fd;
-register char *buf;
-register unsigned int len;
+static int allwrite(ssize_t (*op)(), int fd, char *buf, unsigned int len)
 {
-  register int w;
+  ssize_t w;
 
   while (len) {
     w = op(fd,buf,len);

@@ -106,16 +106,17 @@ int timeoutconnect = 60;
 int smtpfd;
 int timeout = 1200;
 
-int saferead(fd,buf,len) int fd; char *buf; int len;
+ssize_t saferead(int fd, char *buf, ssize_t len)
 {
-  int r;
+  ssize_t r;
   r = timeoutread(timeout,smtpfd,buf,len);
   if (r <= 0) dropped();
   return r;
 }
-int safewrite(fd,buf,len) int fd; char *buf; int len;
+
+ssize_t safewrite(int fd, char *buf, ssize_t len)
 {
-  int r;
+  ssize_t r;
   r = timeoutwrite(timeout,smtpfd,buf,len);
   if (r <= 0) dropped();
   return r;

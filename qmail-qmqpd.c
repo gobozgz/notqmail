@@ -13,16 +13,16 @@
 
 void resources() { _exit(111); }
 
-int safewrite(fd,buf,len) int fd; char *buf; int len;
+ssize_t safewrite(int fd, char *buf, ssize_t len)
 {
-  int r;
+  ssize_t r;
   r = write(fd,buf,len);
   if (r <= 0) _exit(0);
   return r;
 }
-int saferead(fd,buf,len) int fd; char *buf; int len;
+ssize_t saferead(int fd, char *buf, ssize_t len)
 {
-  int r;
+  ssize_t r;
   r = read(fd,buf,len);
   if (r <= 0) _exit(0);
   return r;

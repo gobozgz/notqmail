@@ -389,7 +389,7 @@ int *cutable;
   if (qmeexists(fd,cutable)) {
     if (safeext.len >= 7) {
       i = safeext.len - 7;
-      if (!byte_diff("default",7,safeext.s + i))
+      if (memcmp("default",safeext.s + i,7) == 0)
 	if (i <= str_len(ext)) /* paranoia */
 	  if (!env_put2("DEFAULT",ext + i)) temp_nomem();
     }

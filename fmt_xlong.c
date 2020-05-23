@@ -3,7 +3,9 @@
 /* writes ulong u in hex to char *s, does not NULL-terminate */
 unsigned int fmt_xlong(char *s, unsigned long u)
 {
- unsigned int len; unsigned long q; unsigned long c;
+ unsigned int len;
+ unsigned long q;
+ unsigned long c;
  len = 1; q = u;
  while (q > 15) { ++len; q /= 16; }
  if (s)

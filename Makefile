@@ -1772,10 +1772,10 @@ scan.h fmt.h
 
 str.a: \
 makelib str_chr.o \
-str_rchr.o byte_chr.o byte_rchr.o byte_copy.o \
+byte_chr.o byte_rchr.o byte_copy.o \
 byte_cr.o byte_zero.o
 	./makelib str.a \
-	str_chr.o str_rchr.o byte_chr.o byte_rchr.o \
+	str_chr.o byte_chr.o byte_rchr.o \
 	byte_copy.o byte_cr.o byte_zero.o
 
 str_chr.c: \
@@ -1788,10 +1788,6 @@ chkstrchr0.c compile load str_chr.c.impl str_chr.c.gnu
 str_chr.o: \
 compile str_chr.c str.h
 	./compile str_chr.c
-
-str_rchr.o: \
-compile str_rchr.c str.h
-	./compile str_rchr.c
 
 stralloc.a: \
 makelib stralloc_eady.o stralloc_pend.o stralloc_copy.o \

@@ -57,9 +57,9 @@ char num[FMT_ULONG];
 
 int main(int argc, char **argv)
 {
-  if (argc == 1) _exit(100);
+  if (argc == 1) return 100;
   local = argv[1];
-  if (!local) _exit(100);
+  if (!local) return 100;
 
   if (!userext()) {
     extension = local;
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
     pw = getpwnam(auto_usera);
   }
 
-  if (!pw) _exit(QLX_NOALIAS);
+  if (!pw) return QLX_NOALIAS;
 
   substdio_puts(subfdoutsmall,pw->pw_name);
   substdio_put(subfdoutsmall,"",1);
@@ -83,5 +83,5 @@ int main(int argc, char **argv)
   substdio_put(subfdoutsmall,"",1);
   substdio_flush(subfdoutsmall);
 
-  _exit(0);
+  return 0;
 }

@@ -11,15 +11,14 @@ char *s;
   if (substdio_puts(&ss1,s) == -1) _exit(111);
 }
 
-void main(argc,argv)
-int argc;
-char **argv;
+int main(int argc, char **argv)
 {
   char *name;
   char *value;
   unsigned char ch;
   char octal[4];
 
+  if (argc != 3) _exit(100);
   name = argv[1];
   if (!name) _exit(100);
   value = argv[2];

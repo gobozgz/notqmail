@@ -1778,6 +1778,13 @@ byte_cr.o byte_zero.o
 	str_chr.o str_rchr.o str_start.o byte_chr.o byte_rchr.o \
 	byte_copy.o byte_cr.o byte_zero.o
 
+str_chr.c: \
+chkstrchr0.c compile load str_chr.c.impl str_chr.c.gnu
+	 ( ( ./compile chkstrchr0.c  && ./load chkstrchr0 && \
+	./chkstrchr0 ) >/dev/null 2>&1 \
+	&& cat str_chr.c.gnu || cat str_chr.c.impl ) > str_chr.c
+	rm -f chkstrchr0.o chkstrchr0
+
 str_chr.o: \
 compile str_chr.c str.h
 	./compile str_chr.c

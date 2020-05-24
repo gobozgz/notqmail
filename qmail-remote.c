@@ -281,21 +281,21 @@ char *s;
 int *flagalias;
 int flagcname;
 {
-  int j;
+  char *at;
  
   *flagalias = flagcname;
  
-  j = str_rchr(s,'@');
-  if (!s[j]) {
+  at = strrchr(s,'@');
+  if (!at) {
     if (!stralloc_copys(saout,s)) temp_nomem();
     return;
   }
   if (!stralloc_copys(&canonbox,s)) temp_nomem();
-  canonbox.len = j;
+  canonbox.len = at - s;
   if (!quote(saout,&canonbox)) temp_nomem();
   if (!stralloc_cats(saout,"@")) temp_nomem();
  
-  if (!stralloc_copys(&canonhost,s + j + 1)) temp_nomem();
+  if (!stralloc_copys(&canonhost,at + 1)) temp_nomem();
   if (flagcname)
     switch(dns_cname(&canonhost)) {
       case 0: *flagalias = 0; break;

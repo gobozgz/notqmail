@@ -95,7 +95,6 @@ error.a
 str_chr.c
 str_chr.o
 str_rchr.o
-str_start.o
 byte_chr.o
 byte_rchr.o
 byte_copy.o

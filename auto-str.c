@@ -30,6 +30,11 @@ char **argv;
   puts("[] = \"\\\n");
 
   while (ch = *value++) {
+    if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '/' || ch == '_' || ch == '-' || ch == '.') {
+      if (substdio_put(&ss1, &ch, 1) == -1)
+        _exit(111);
+      continue;
+    }
     puts("\\");
     octal[3] = 0;
     octal[2] = '0' + (ch & 7); ch >>= 3;
